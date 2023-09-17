@@ -15,7 +15,6 @@ class ContactManager extends Ressource {
      * @returns {Promise<object>} A promise that resolves with the created contact data.
      */
     async create (body){
-        console.log(body)
         try{
             const response = await axios.post(
                 `${this.RESSOURCE_URL}`,

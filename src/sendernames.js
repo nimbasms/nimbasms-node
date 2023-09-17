@@ -18,7 +18,7 @@ class SenderNameManager extends Ressource {
             const response = await axios.get(this.RESSOURCE_URL, { headers: { Authorization: `Basic ${this.API_KEY}` } });
             return response.data;
         } catch (error) {
-            return error.response ? error.response.data : error.message;
+            throw error.response ? error.response.data : error.message;
         }
     }
 }

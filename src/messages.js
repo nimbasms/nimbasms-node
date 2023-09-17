@@ -42,7 +42,7 @@ class MessageManager extends Ressource {
             return response.data;
         
         } catch(error) {
-            return error.response ? error.response.data : error.message;
+            throw error.response ? error.response.data : error.message;
         }
     }
 
@@ -58,7 +58,7 @@ class MessageManager extends Ressource {
             const response = await axios.get(`${this.RESSOURCE_URL}/${messageId}`, { headers : { Authorization: `Basic ${this.API_KEY}`}});
             return response.data;
         } catch (error) {
-            return error.response ? error.response.data : error.message;
+            throw error.response ? error.response.data : error.message;
         }
     }
 }
