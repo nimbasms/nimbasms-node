@@ -4,4 +4,8 @@
  * It includes examples of listing contacts, sender names, groups, accounts, and messages.
  */
 
-require('./examples/nimba-sms-demo');
+const Client = require('./src/client');
+
+module.exports = {
+    Client
+}

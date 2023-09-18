@@ -1,5 +1,5 @@
 {
-  "name": "nimbasms-node",
+  "name": "nimbasms",
   "version": "1.0.0",
   "description": "A Node JS module for communicating with Nimba SMS API.",
   "main": "index.js",

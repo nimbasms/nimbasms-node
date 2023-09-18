@@ -18,7 +18,7 @@ npm install nimbasms
 
 ## <a name="account"></a> Check balance
 ```js
-const Client = require('nimbasms/client');
+const { Client } = require('nimbasms/client');
 
 const config = {
     API_KEY = 'XXXX', // Base 64 encoded 
@@ -41,7 +41,7 @@ client.accounts.get()
 ## <a name="group"></a> Groups
 
 ```js
-const Client = require('nimbasms/client');
+const { Client } = require('nimbasms/client');
 
 const config = {
     API_KEY = 'XXXX', // Base 64 encoded 
@@ -66,7 +66,7 @@ client.groups.list()
 ## <a name="sendername"></a> Sendernames
 
 ```js
-const Client = require('nimbasms/client');
+const { Client } = require('nimbasms/client');
 
 const config = {
     API_KEY = 'XXXX', // Base 64 encoded 
@@ -91,7 +91,7 @@ client.sendernames.list()
 ## <a name="contact"></a> Create Contact
 
 ```js
-const Client = require('nimbasms/client');
+const { Client } = require('nimbasms/client');
 
 const config = {
     API_KEY = 'XXXX', // Base 64 encoded 
@@ -145,7 +145,7 @@ client.contacts.create(body)
 ## <a name="message"></a> Messages
 
 ```js
-const Client = require('nimbasms/client');
+const { Client } = require('nimbasms/client');
 
 const config = {
     API_KEY = 'XXXX', // Base 64 encoded 
