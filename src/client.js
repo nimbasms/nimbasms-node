@@ -19,39 +19,88 @@ class NimbaSMSClient {
      */
     constructor({SERVICE_ID, SECRET_TOKEN}) {
         /**
-         * Manager for interacting with contacts.
-         * @type {ContactManager}
-         * @memberof NimbaSMSClient
+         * The service ID associated with the Nimba SMS client.
+         * @type {string}
+         * @private
          */
-        this.contacts = new ContactManager({SERVICE_ID, SECRET_TOKEN});
-        
+        this._serviceId = SERVICE_ID;
+
         /**
-         * Manager for interacting with sender names.
-         * @type {SenderNameManager}
-         * @memberof NimbaSMSClient
+         * The secret token associated with the Nimba SMS client.
+         * @type {string}
+         * @private
          */
-        this.sendernames = new SenderNameManager({SERVICE_ID, SECRET_TOKEN});
-        
-        /**
-         * Manager for interacting with groups.
-         * @type {GroupManager}
-         * @memberof NimbaSMSClient
-         */
-        this.groups = new GroupManager({SERVICE_ID, SECRET_TOKEN});
-        
-        /**
-         * Manager for interacting with accounts.
-         * @type {AccountManager}
-         * @memberof NimbaSMSClient
-         */
-        this.accounts = new AccountManager({SERVICE_ID, SECRET_TOKEN});
-        
-        /**
-         * Manager for interacting with messages.
-         * @type {MessageManager}
-         * @memberof NimbaSMSClient
-         */
-        this.messages = new MessageManager({SERVICE_ID, SECRET_TOKEN});
+        this._secretToken = SECRET_TOKEN;
+    }
+
+    /**
+     * Gets the manager for interacting with messages.
+     * @returns {MessageManager} The manager for messages.
+     */
+    get messages() {
+        if(!this._messagesManager) {
+            this._messagesManager = new MessageManager({
+                SERVICE_ID: this._serviceId,
+                SECRET_TOKEN: this._secretToken,
+            });
+        }
+        return this._messagesManager;
+    }
+
+    /**
+     * Gets the manager for interacting with groups.
+     * @returns {GroupManager} The manager for groups.
+     */
+    get groups() {
+        if(!this._groupManager) {
+            this._groupManager = new GroupManager({
+                SERVICE_ID: this._serviceId,
+                SECRET_TOKEN: this._secretToken,
+            });
+        }
+        return this._groupManager;
+    }
+
+    /**
+     * Gets the manager for interacting with sender names.
+     * @returns {SenderNameManager} The manager for sender names.
+     */
+    get sendernames() {
+        if(!this._senderNameManager) {
+            this._senderNameManager = new SenderNameManager({
+                SERVICE_ID: this._serviceId,
+                SECRET_TOKEN: this._secretToken,
+            });
+        }
+        return this._senderNameManager;
+    }
+
+    /**
+     * Gets the manager for interacting with contacts.
+     * @returns {ContactManager} The manager for contacts.
+     */
+    get contacts() {
+        if(!this._contactManager) {
+            this._contactManager = new ContactManager({
+                SERVICE_ID: this._serviceId,
+                SECRET_TOKEN: this._secretToken,
+            });
+        }
+        return this._contactManager;
+    }
+
+    /**
+     * Gets the manager for interacting with accounts.
+     * @returns {AccountManager} The manager for accounts.
+     */
+    get accounts() {
+        if(!this._accountManager) {
+            this._accountManager = new AccountManager({
+                SECRET_TOKEN: this._secretToken,
+                SERVICE_ID: this._serviceId,
+            });
+        }
+        return this._accountManager;
     }
 }
 

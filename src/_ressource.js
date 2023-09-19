@@ -67,11 +67,11 @@ class Ressource{
                 throw new Error("Query parameters must be an object")
             }
 
-            if(params.limit && (isNaN(params.limit) || params.limit < 0)) {
+            if(params?.limit !== undefined && (typeof params.limit !== 'number' || params.limit < 0)) {
                 throw new Error("limit query parameter must be greater than 0");
             }
     
-            if(params.offset && (isNaN(params.offset) || params.offset < 0)) {
+            if(params?.offset !== undefined && (typeof params.offset !== 'number' || params.offset < 0)) {
                 throw new Error("offset query parameter must be greater than 0");
             }
         }
