@@ -14,6 +14,7 @@ class Ressource{
         if (new.target === Ressource) {
             throw new Error("Cannot instanciate this class !");
         }
+
         /**
          * The API key used for authorization.
          * @type {string}
@@ -26,8 +27,25 @@ class Ressource{
          */
         this.API_BASE_URL = 'https://api.nimbasms.com/v1';
 
+        /**
+         * Indicates the next page of results in a paginated resource listing.
+         * @type {string|null}
+         * @private
+         */
         this._next = null;
+
+        /**
+         * Indicates the previous page of results in a paginated resource listing.
+         * @type {string|null}
+         * @private
+         */
         this._previous = null;
+
+        /**
+         * The total count of resources available for pagination.
+         * @type {number}
+         * @private
+         */
         this._count = 0;
     }
 

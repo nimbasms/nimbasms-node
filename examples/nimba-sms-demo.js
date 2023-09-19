@@ -7,22 +7,23 @@ require("dotenv").config();
  */
 
 /**
- * Replace with your actual API_KEY and API_URL.
+ * Replace with your actual SERVICE_ID.
  * @type {string}
  */
-const API_KEY = process.env.SECRET_TOKEN;
+const SERVICE_ID = process.env.SERVICE_ID;
+
 
 /**
- * Replace with your actual API URL.
+ * Replace with your actual API SECRET TOKEN.
  * @type {string}
- */
-const API_URL = 'https://api.nimbasms.com/v1';
+*/
+const SECRET_TOKEN = process.env.SECRET_TOKEN;
 
 /**
  * Create an instance of NimbaSMSClient.
  * @type {NimbaSMSClient}
  */
-const nimbaClient = new NimbaSMSClient({ API_KEY, API_URL });
+const nimbaClient = new NimbaSMSClient({ SERVICE_ID, SECRET_TOKEN });
 
 /**
  * Sample usage of the ContactManager to list contacts.

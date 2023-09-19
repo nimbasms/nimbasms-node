@@ -1,5 +1,4 @@
 const Ressource = require('./_ressource');
-const axios = require('axios');
 
 
 /**
@@ -38,14 +37,11 @@ class AccountManager extends Ressource {
      * @memberof AccountManager
      */
     async get(){
-        try{
-            const response = await axios.get(`${this.RESSOURCE_URL}`, {
-                headers: `Authorization: Basic ${this.API_KEY}`
-            })
-            return response.data;
-        } catch(error) {
-            throw error.response ? error.response.data : error.message;
-        }
+        const data = this.request({ 
+            url: this.RESSOURCE_URL 
+        });
+        
+        return data;
     }
 }
 

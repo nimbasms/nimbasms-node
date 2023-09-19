@@ -1,5 +1,4 @@
 const Ressource = require('./_ressource');
-const axios = require('axios');
 
 /**
  * Represents a Sender Name Manager responsible for handling sender name-related operations.

@@ -1,5 +1,4 @@
 const Ressource = require('./_ressource');
-const axios = require('axios');
 
 /**
  * Represents a Message Manager responsible for handling message-related operations.
