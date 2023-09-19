@@ -21,8 +21,8 @@ npm install nimbasms
 const { Client } = require('nimbasms/client');
 
 const config = {
-    API_KEY = 'XXXX', // Base 64 encoded 
-    API_URL = 'https://api.nimbasms.com/v1',
+    SERVICE_ID = 'XXXXXXXXXXX', 
+    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -44,8 +44,8 @@ client.accounts.get()
 const { Client } = require('nimbasms/client');
 
 const config = {
-    API_KEY = 'XXXX', // Base 64 encoded 
-    API_URL = 'https://api.nimbasms.com/v1',
+    SERVICE_ID = 'XXXXXXXXXXX', 
+    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -69,8 +69,8 @@ client.groups.list()
 const { Client } = require('nimbasms/client');
 
 const config = {
-    API_KEY = 'XXXX', // Base 64 encoded 
-    API_URL = 'https://api.nimbasms.com/v1',
+    SERVICE_ID = 'XXXXXXXXXXX', 
+    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -94,8 +94,8 @@ client.sendernames.list()
 const { Client } = require('nimbasms/client');
 
 const config = {
-    API_KEY = 'XXXX', // Base 64 encoded 
-    API_URL = 'https://api.nimbasms.com/v1',
+    SERVICE_ID = 'XXXXXXXXXXX', 
+    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -148,8 +148,8 @@ client.contacts.create(body)
 const { Client } = require('nimbasms/client');
 
 const config = {
-    API_KEY = 'XXXX', // Base 64 encoded 
-    API_URL = 'https://api.nimbasms.com/v1',
+    SERVICE_ID = 'XXXXXXXXXXX', 
+    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)

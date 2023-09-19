@@ -4,11 +4,11 @@
 class Ressource{
     /**
      * Create a new instance of the resource manager.
-     * @param {object} options - Options for configuring the resource manager.
-     * @param {string} options.API_KEY - The API key used for authorization.
-     * @param {string} options.RESSOURCE_URL - The base URL for the resource.
+     * @param {object} options - Options for configuring the Nimba SMS client.
+     * @param {string} options.SERVICE_ID - Unique identifier for your application.
+     * @param {string} options.SECRET_TOKEN - The secret token used to authenticate your application.
      */
-    constructor({API_KEY, RESSOURCE_URL}) {
+    constructor({SERVICE_ID, SECRET_TOKEN}) {
         if (new.target === Ressource) {
             throw new Error("Cannot instanciate this class !");
         }
@@ -16,13 +16,13 @@ class Ressource{
          * The API key used for authorization.
          * @type {string}
          */
-        this.API_KEY = API_KEY;
-
+        this.API_KEY = Buffer.from(`${SERVICE_ID}:${SECRET_TOKEN}`).toString('base64');
+        
         /**
-         * The base URL for the resource.
+         * The base route to Nimba SMS API.
          * @type {string}
          */
-        this.RESSOURCE_URL = RESSOURCE_URL;
+        this.API_BASE_URL = 'https://api.nimbasms.com/v1';
     }
 }
 

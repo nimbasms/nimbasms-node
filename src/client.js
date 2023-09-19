@@ -10,40 +10,48 @@ const MessageManager = require('./messages');
 class NimbaSMSClient {
     /**
      * Create a new instance of the Nimba SMS client.
+     * 
+     * @constructor
      * @param {object} options - Options for configuring the Nimba SMS client.
-     * @param {string} options.API_KEY - The API key used for authorization.
-     * @param {string} options.API_URL - The base URL for the Nimba SMS API.
+     * @param {string} options.SERVICE_ID - Unique identifier for your application.
+     * @param {string} options.SECRET_TOKEN - The secret token used to authenticate your application.
+     * @memberof NimbaSMSClient
      */
-    constructor({API_KEY, API_URL}) {
+    constructor({SERVICE_ID, SECRET_TOKEN}) {
         /**
          * Manager for interacting with contacts.
          * @type {ContactManager}
+         * @memberof NimbaSMSClient
          */
-        this.contacts = new ContactManager({API_KEY, RESSOURCE_URL: `${API_URL}/contacts`});
+        this.contacts = new ContactManager({SERVICE_ID, SECRET_TOKEN});
         
         /**
          * Manager for interacting with sender names.
          * @type {SenderNameManager}
+         * @memberof NimbaSMSClient
          */
-        this.sendernames = new SenderNameManager({API_KEY, RESSOURCE_URL: `${API_URL}/sendernames`});
+        this.sendernames = new SenderNameManager({SERVICE_ID, SECRET_TOKEN});
         
         /**
          * Manager for interacting with groups.
          * @type {GroupManager}
+         * @memberof NimbaSMSClient
          */
-        this.groups = new GroupManager({API_KEY, RESSOURCE_URL: `${API_URL}/groups`});
+        this.groups = new GroupManager({SERVICE_ID, SECRET_TOKEN});
         
         /**
          * Manager for interacting with accounts.
          * @type {AccountManager}
+         * @memberof NimbaSMSClient
          */
-        this.accounts = new AccountManager({API_KEY, RESSOURCE_URL: `${API_URL}/accounts`});
+        this.accounts = new AccountManager({SERVICE_ID, SECRET_TOKEN});
         
         /**
          * Manager for interacting with messages.
          * @type {MessageManager}
+         * @memberof NimbaSMSClient
          */
-        this.messages = new MessageManager({API_KEY, RESSOURCE_URL: `${API_URL}/messages`});
+        this.messages = new MessageManager({SERVICE_ID, SECRET_TOKEN});
     }
 }
 
