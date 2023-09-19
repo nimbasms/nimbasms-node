@@ -42,20 +42,7 @@ class ContactManager extends Ressource {
      * @memberof ContactManager 
      */
     async create (body){
-        try{
-            const response = await axios.post(
-                `${this.RESSOURCE_URL}`,
-                body,
-                {
-                    headers: {
-                        Authorization: `Basic ${this.API_KEY}`
-                    },
-                }
-            ); 
-            return response.data;
-        } catch(error) {
-            throw error.response ? error.response.data : error.message;
-        }
+        return super.create(body);
     }
 
     /**
@@ -69,19 +56,7 @@ class ContactManager extends Ressource {
      * @memberof ContactManager 
      */
     async list(params){
-        const _params = new URLSearchParams();
-        for(let p in params) {
-            _params.append(p, params[p]);
-        }
-
-        try {
-            const response = await axios.get(`${this.RESSOURCE_URL}?${_params.toString()}`, {
-                headers: `Authorization: Basic ${this.API_KEY}`
-            })
-            return response.data;
-        } catch(error) {
-            throw error.response ? error.response.data : error.message;
-        }
+        return super.list(params);
     }
 }
 

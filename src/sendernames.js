@@ -40,12 +40,7 @@ class SenderNameManager extends Ressource {
      * @memberof SenderNameManager
      */
     list = async (params) => {
-        try {
-            const response = await axios.get(this.RESSOURCE_URL, { headers: { Authorization: `Basic ${this.API_KEY}` } });
-            return response.data;
-        } catch (error) {
-            throw error.response ? error.response.data : error.message;
-        }
+        return super.list(params);
     }
 }
 

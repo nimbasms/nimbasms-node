@@ -43,19 +43,10 @@ class MessageManager extends Ressource {
      * @memberof MessageManager
      */
     async list (params) {
-        const _params = new URLSearchParams();
-        for(let p in params) {
-            _params.append(p, params[p]);
-        }
+        // Validate the dates
 
-        try {
-            const response = await axios.get(`${this.RESSOURCE_URL}?${_params.toString()}`, {
-                headers: `Authorization: Basic ${this.API_KEY}`
-            })
-            return response.data;
-        } catch(error) {
-            throw error.response ? error.response.data : error.message;
-        }
+        
+        return super.list(params);
     }
 
     /**
@@ -72,13 +63,7 @@ class MessageManager extends Ressource {
      * @memberof MessageManager
      */
     async create(body) {
-        try {
-            const response = await axios.post(this.RESSOURCE_URL, body, { headers : { Authorization: `Basic ${this.API_KEY}`}});
-            return response.data;
-        
-        } catch(error) {
-            throw error.response ? error.response.data : error.message;
-        }
+        return super.create(body);
     }
 
     /**
@@ -91,12 +76,11 @@ class MessageManager extends Ressource {
      * @memberof MessageManager
      */
     async get(messageId) {
-        try {
-            const response = await axios.get(`${this.RESSOURCE_URL}/${messageId}`, { headers : { Authorization: `Basic ${this.API_KEY}`}});
-            return response.data;
-        } catch (error) {
-            throw error.response ? error.response.data : error.message;
-        }
+        const data = this.request({
+            url: `${this.RESSOURCE_URL}/${messageId}`,
+        })
+        
+        return data;
     }
 }
 
