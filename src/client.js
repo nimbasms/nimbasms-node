@@ -31,6 +31,34 @@ class NimbaSMSClient {
          * @private
          */
         this._secretToken = SECRET_TOKEN;
+
+        /**
+         * Manager for interacting with contacts.
+         * @type {ContactManager}
+         * @memberof NimbaSMSClient
+         */
+        this._accountManager = null;
+        
+        /**
+         * Manager for interacting with messages.
+         * @type {MessageManager}
+         * @memberof NimbaSMSClient
+         */
+        this._messageManager = null;
+
+        /**
+         * Manager for interacting with groups.
+         * @type {GroupManager}
+         * @memberof NimbaSMSClient
+         */
+        this._groupManager = null;
+
+        /**
+         * Manager for interacting with sendernames.
+         * @type {SenderManager}
+         * @memberof NimbaSMSClient
+         */
+        this._senderNameManager = null;
     }
 
     /**
@@ -38,13 +66,13 @@ class NimbaSMSClient {
      * @returns {MessageManager} The manager for messages.
      */
     get messages() {
-        if(!this._messagesManager) {
-            this._messagesManager = new MessageManager({
+        if(!this._messageManager) {
+            this._messageManager = new MessageManager({
                 SERVICE_ID: this._serviceId,
                 SECRET_TOKEN: this._secretToken,
             });
         }
-        return this._messagesManager;
+        return this._messageManager;
     }
 
     /**
