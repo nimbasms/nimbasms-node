@@ -9,6 +9,7 @@ A NodeJS module for communicating with Nimba SMS API.
  - [Sendernames](#sendername)
  - [Create Contacts](#contact)
  - [Send Message](#message)
+ - [Verifications](#verifications)
 
 
 ## <a name="installation"></a> Installation
@@ -201,6 +202,50 @@ client.messages.get(messageId)
     console.log(error);
   });
 ```
+
+## <a name="verifications"></a> Verifications
+```js
+const { Client } = require('nimbasms/client');
+
+const config = {
+    SERVICE_ID = 'XXXXXXXXXXX', 
+    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
+}
+
+const client = new Client(config)
+
+
+// Send a verification request
+const verification = {
+    to: "+123456789",
+    message: "Your verification code is: <1234>",
+    expiry_time: 5,
+};
+
+client.verifications.create(verification)
+    .then(response => {
+        console.log("A verification request is issued: ", response);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+
+// Verify a verification request
+const verificationParams = {
+    verificationId: "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+    code: "YYYY",
+};
+
+client.verifications.verify(verificationParams)
+    .then(response => {
+        console.log(response);
+    })
+    .catch(error => {
+        console.log(error);
+    })
+```
+
 
 ## Credit
 Nimba SMS

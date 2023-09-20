@@ -4,7 +4,7 @@
  * It includes examples of listing contacts, sender names, groups, accounts, and messages.
  */
 
-const Client = require('./src/client');
+const Client = require('./src/_client');
 
 module.exports = {
     Client

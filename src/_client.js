@@ -3,6 +3,7 @@ const SenderNameManager = require('./sendernames');
 const GroupManager = require('./groups');
 const AccountManager = require('./accounts');
 const MessageManager = require('./messages');
+const VerificationManager = require('./verifications');
 
 /**
  * Represents a Nimba SMS client for interacting with Nimba SMS API resources.
@@ -59,6 +60,13 @@ class NimbaSMSClient {
          * @memberof NimbaSMSClient
          */
         this._senderNameManager = null;
+
+        /**
+         * Manager for interacting with verifications.
+         * @type {VerificationManager}
+         * @memberof NimbaSMSClient
+         */
+        this._verificationManager = null;
     }
 
     /**
@@ -129,6 +137,20 @@ class NimbaSMSClient {
             });
         }
         return this._accountManager;
+    }
+    
+    /**
+     * Gets the manager for interacting with verifications.
+     * @returns {VerificationManager} The manager for verifications.
+     */
+    get verifications() {
+        if(!this._verificationManager) {
+            this._verificationManager = new VerificationManager({
+                SECRET_TOKEN: this._secretToken,
+                SERVICE_ID: this._serviceId,
+            });
+        }
+        return this._verificationManager;
     }
 }
 

@@ -1,4 +1,4 @@
-const NimbaSMSClient = require('../src/client');
+const NimbaSMSClient = require('nimbasms');
 require("dotenv").config();
 
 
