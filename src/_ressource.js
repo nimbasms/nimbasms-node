@@ -67,26 +67,27 @@ class Ressource{
                 throw new Error("Query parameters must be an object")
             }
 
-            if(params?.limit !== undefined && (typeof params.limit !== 'number' || params.limit < 0)) {
-                throw new Error("limit query parameter must be greater than 0");
+            const { limit, offset } = params;
+
+            if(limit !== undefined && (typeof limit !== 'number' || limit <= 0)) {
+                throw new Error("limit query parameter must be a positive number.");
             }
     
-            if(params?.offset !== undefined && (typeof params.offset !== 'number' || params.offset < 0)) {
-                throw new Error("offset query parameter must be greater than 0");
+            if(offset !== undefined && (typeof offset !== 'number' || offset < 0)) {
+                throw new Error("offset query parameter must be a non-negative number.");
             }
         }
 
-        const data = await this.request({
+        const { next, count, previous, ...restData } = await this.request({
             url: this.RESSOURCE_URL,
             params: params,
         });
 
-        this._next = data.next;
-        this._count = data.count;
-        this._previous = data.previous;
-        
-        return data;
+        this._next = next;
+        this._count = count;
+        this._previous = previous;
 
+        return restData;
     }
 
     /**
@@ -122,16 +123,15 @@ class Ressource{
             return null;
         }
 
-        const data = await this.request({
+        const { next, count, previous, ...restData } = await this.request({
             url: this._next,
-            method: 'GET',
         });
 
-        this._count = data.count;
-        this._previous = data.previous;
-        this._next = data.next;
+        this._next = next;
+        this._count = count;
+        this._previous = previous;
 
-        return data;
+        return restData;
     }
 
     /**
@@ -146,16 +146,16 @@ class Ressource{
             return null;
         }
 
-        const data = await this.request({
+        const { next, count, previous, ...restData } = await this.request({
             url: this._previous,
-            method: 'GET',
+            params: params,
         });
 
-        this._count = data.count;
-        this._previous = data.previous;
-        this._next = data.next;
+        this._next = next;
+        this._count = count;
+        this._previous = previous;
 
-        return data;
+        return restData;
     }
 
     /**
