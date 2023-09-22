@@ -1,0 +1,24 @@
+{
+  "name": "nimbasms",
+  "version": "1.0.0",
+  "description": "A Node JS module for communicating with Nimba SMS API.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "devstart": "nodemon index.js",
+    "start": "npm index.js"
+  },
+  "keywords": [
+    "NIMBASMS",
+    "SMS",
+    "API"
+  ],
+  "author": "Nimba SMS",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.3.1"
+  }
+}
