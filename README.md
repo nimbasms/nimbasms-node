@@ -22,8 +22,8 @@ npm install nimbasms
 const { Client } = require('nimbasms');
 
 const config = {
-    SERVICE_ID = 'XXXXXXXXXXX', 
-    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
+    SERVICE_ID : 'XXXXXXXXXXX', 
+    SECRET_TOKEN : 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -45,8 +45,8 @@ client.accounts.get()
 const { Client } = require('nimbasms');
 
 const config = {
-    SERVICE_ID = 'XXXXXXXXXXX', 
-    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
+    SERVICE_ID : 'XXXXXXXXXXX', 
+    SECRET_TOKEN : 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -70,8 +70,8 @@ client.groups.list()
 const { Client } = require('nimbasms');
 
 const config = {
-    SERVICE_ID = 'XXXXXXXXXXX', 
-    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
+    SERVICE_ID : 'XXXXXXXXXXX', 
+    SECRET_TOKEN : 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -95,8 +95,8 @@ client.sendernames.list()
 const { Client } = require('nimbasms');
 
 const config = {
-    SERVICE_ID = 'XXXXXXXXXXX', 
-    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
+    SERVICE_ID : 'XXXXXXXXXXX', 
+    SECRET_TOKEN : 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -149,8 +149,8 @@ client.contacts.create(body)
 const { Client } = require('nimbasms');
 
 const config = {
-    SERVICE_ID = 'XXXXXXXXXXX', 
-    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
+    SERVICE_ID : 'XXXXXXXXXXX', 
+    SECRET_TOKEN : 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
@@ -208,8 +208,8 @@ client.messages.get(messageId)
 const { Client } = require('nimbasms');
 
 const config = {
-    SERVICE_ID = 'XXXXXXXXXXX', 
-    SECRET_TOKEN = 'YYYYYYYYYYYYYYYYYYY',
+    SERVICE_ID : 'XXXXXXXXXXX', 
+    SECRET_TOKEN : 'YYYYYYYYYYYYYYYYYYY',
 }
 
 const client = new Client(config)
