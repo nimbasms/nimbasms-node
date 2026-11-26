@@ -4,6 +4,7 @@ const GroupManager = require('./groups');
 const AccountManager = require('./accounts');
 const MessageManager = require('./messages');
 const VerificationManager = require('./verifications');
+const PurchaseManager = require('./purchases');
 
 /**
  * Represents a Nimba SMS client for interacting with Nimba SMS API resources.
@@ -67,6 +68,13 @@ class NimbaSMSClient {
          * @memberof NimbaSMSClient
          */
         this._verificationManager = null;
+
+        /**
+         * Manager for interacting with purchases.
+         * @type {PurchaseManager}
+         * @memberof NimbaSMSClient
+         */
+        this._purchaseManager = null;
     }
 
     /**
@@ -151,6 +159,20 @@ class NimbaSMSClient {
             });
         }
         return this._verificationManager;
+    }
+
+    /**
+     * Gets the manager for interacting with purchases.
+     * @returns {PurchaseManager} The manager for purchases.
+     */
+    get purchases() {
+        if(!this._purchaseManager) {
+            this._purchaseManager = new PurchaseManager({
+                SECRET_TOKEN: this._secretToken,
+                SERVICE_ID: this._serviceId,
+            });
+        }
+        return this._purchaseManager;
     }
 }
 

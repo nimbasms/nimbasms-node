@@ -61,6 +61,21 @@ class Ressource{
      */
 
     async list(params){
+        return this.listUrl(this.RESSOURCE_URL, params);
+    }
+
+    /**
+     * List a resource from a custom URL with optional query parameters.
+     * @async
+     * @param {string} url - The URL to list the resource from.
+     * @param {object} [params] - (Optional) Query parameters for listing the resource.
+     * @param {number} [params.limit] - (Optional) The maximum number of resources to retrieve.
+     * @param {number} [params.offset] - (Optional) The offset for paginating through resources.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with a list of resources.
+     * @memberof Ressource
+     */
+    async listUrl(url, params){
         // Validate the query parameters
         if(params !== undefined) {
             if(!(params instanceof Object)) {
@@ -79,7 +94,7 @@ class Ressource{
         }
 
         const { next, count, previous, ...restData } = await this.request({
-            url: this.RESSOURCE_URL,
+            url: url,
             params: params,
         });
 
@@ -97,14 +112,24 @@ class Ressource{
      * @param {string} options.url - The URL for the request.
      * @param {string} options.method - The HTTP method for the request (e.g., 'GET', 'POST').
      * @param {object} [options.params] - (Optional) Query parameters for the request.
-     * @param {object} [options.data] - (Optional) Data to send in the request body.
+     * @param {object|Buffer} [options.data] - (Optional) Data to send in the request body.
+     * @param {object} [options.headers] - (Optional) Additional HTTP headers.
      * @throws {Error} If the request fails or the server returns an error.
      * @returns {Promise<object>} A promise that resolves with the response data.
      * @memberof Ressource
      */
-    async request({url, method, params, data}) {
+    async request({url, method, params, data, headers}) {
         try {
-            const response = await axios({url, method, params, data, headers : { 'Authorization': `Basic ${this.API_KEY}`}});
+            const response = await axios({
+                url,
+                method,
+                params,
+                data,
+                headers : {
+                    'Authorization': `Basic ${this.API_KEY}`,
+                    ...headers,
+                },
+            });
             return response.data;
         } catch (error) { 
             throw error.response ? error.response.data : error.message;
@@ -148,7 +173,6 @@ class Ressource{
 
         const { next, count, previous, ...restData } = await this.request({
             url: this._previous,
-            params: params,
         });
 
         this._next = next;
@@ -156,6 +180,52 @@ class Ressource{
         this._previous = previous;
 
         return restData;
+    }
+
+    /**
+     * Retrieve a single resource by its identifier.
+     * @async
+     * @param {string} id - The identifier of the resource to retrieve.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the resource data.
+     * @memberof Ressource
+     */
+    async retrieve(id) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${id}`,
+        });
+    }
+
+    /**
+     * Partially update a resource by its identifier.
+     * @async
+     * @param {string} id - The identifier of the resource to update.
+     * @param {object} body - The data to update on the resource.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the updated resource data.
+     * @memberof Ressource
+     */
+    async update(id, body) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${id}`,
+            method: "PATCH",
+            data: body,
+        });
+    }
+
+    /**
+     * Delete a resource by its identifier.
+     * @async
+     * @param {string} id - The identifier of the resource to delete.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the server response.
+     * @memberof Ressource
+     */
+    async delete(id) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${id}`,
+            method: "DELETE",
+        });
     }
 
     /**
@@ -167,13 +237,11 @@ class Ressource{
      * @memberof Ressource
      */
     async create(body) {
-        const data = this.request({
+        return this.request({
             url: this.RESSOURCE_URL,
             data: body,
             method: "POST"
-        })
-        
-        return data;
+        });
     }
 }
 
