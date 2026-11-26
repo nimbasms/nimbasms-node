@@ -1,5 +1,3 @@
-const axios = require('axios');
-
 /**
  * Represents a base resource manager class responsible for handling common operations.
  */
@@ -118,23 +116,55 @@ class Ressource{
      * @returns {Promise<object>} A promise that resolves with the response data.
      * @memberof Ressource
      */
-    async request({url, method, params, data, headers}) {
-        try {
-            const response = await axios({
-                url,
-                method,
-                params,
-                data,
-                headers : {
-                    'Authorization': `Basic ${this.API_KEY}`,
-                    ...headers,
-                },
-            });
-            return response.data;
-        } catch (error) { 
-            throw error.response ? error.response.data : error.message;
-        }
-    }
+     async request({url, method, params, data, headers}) {
+         try {
+             let requestUrl = url;
+
+             if (params !== undefined) {
+                 const query = new URLSearchParams();
+                 for (const [key, value] of Object.entries(params)) {
+                     if (value !== undefined) {
+                         query.append(key, value);
+                     }
+                 }
+                 const queryString = query.toString();
+                 if (queryString) {
+                     requestUrl += `${requestUrl.includes('?') ? '&' : '?'}${queryString}`;
+                 }
+             }
+
+             const response = await fetch(requestUrl, {
+                 method,
+                 headers: {
+                     'Authorization': `Basic ${this.API_KEY}`,
+                     ...(data !== undefined ? { 'Content-Type': 'application/json' } : {}),
+                     ...headers,
+                 },
+                 ...(data !== undefined ? { body: JSON.stringify(data) } : {}),
+             });
+
+             const text = await response.text();
+             let responseData = null;
+             if (text) {
+                 try {
+                     responseData = JSON.parse(text);
+                } catch {
+                    responseData = text;
+                }
+             }
+
+             if (!response.ok) {
+                 throw responseData ?? `HTTP ${response.status} ${response.statusText}`;
+             }
+
+             return responseData;
+         } catch (error) {
+             if (error instanceof TypeError) {
+                 throw error.message;
+             }
+             throw error;
+         }
+     }
 
     /**
      * Retrieve the next page of results.

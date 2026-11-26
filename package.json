@@ -16,8 +16,8 @@
   ],
   "author": "Nimba SMS",
   "license": "ISC",
-  "dependencies": {
-    "axios": "^1.5.0"
+  "engines": {
+    "node": ">=18"
   },
   "devDependencies": {
     "dotenv": "^16.3.1"
