@@ -211,6 +211,61 @@ class ExtensionManager extends Ressource {
             data: { is_published: isPublished },
         });
     }
+
+    /**
+     * Create a new pricing plan for an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {object} body - The pricing plan data to create.
+     * @param {string} body.name - The name of the pricing plan.
+     * @param {string} body.price - The price of the pricing plan, in GNF without the currency.
+     * @param {string} body.billing_period - The billing period (`monthly` or `yearly`).
+     * @param {object} body.features - The features associated with the pricing plan.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the created pricing plan.
+     * @memberof ExtensionManager
+     */
+    async createPricingPlan(extensionId, body) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${extensionId}/pricing-plans`,
+            method: "POST",
+            data: body,
+        });
+    }
+
+    /**
+     * Partially update an existing pricing plan of an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {string} pricingPlanId - The identifier of the pricing plan to update.
+     * @param {object} body - The pricing plan fields to update.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the updated pricing plan.
+     * @memberof ExtensionManager
+     */
+    async updatePricingPlan(extensionId, pricingPlanId, body) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${extensionId}/pricing-plans/${pricingPlanId}`,
+            method: "PATCH",
+            data: body,
+        });
+    }
+
+    /**
+     * Delete an existing pricing plan of an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {string} pricingPlanId - The identifier of the pricing plan to delete.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the server response.
+     * @memberof ExtensionManager
+     */
+    async deletePricingPlan(extensionId, pricingPlanId) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${extensionId}/pricing-plans/${pricingPlanId}`,
+            method: "DELETE",
+        });
+    }
 }
 
 module.exports = ExtensionManager;
