@@ -5,6 +5,7 @@ A NodeJS module for communicating with Nimba SMS API.
 
  - [Installation](#installation)
  - [Check balance](#account)
+ - [Purchases](#purchases)
  - [Groups](#group)
  - [Sendernames](#sendername)
  - [Create Contacts](#contact)
@@ -36,6 +37,41 @@ client.accounts.get()
     .catch(error => {
         console.log(error);
     })
+```
+
+
+## <a name="purchases"></a> Purchases
+
+```js
+const { Client } = require('nimbasms');
+
+const config = {
+    SERVICE_ID : 'XXXXXXXXXXX', 
+    SECRET_TOKEN : 'YYYYYYYYYYYYYYYYYYY',
+}
+
+const client = new Client(config)
+
+// List your purchases
+client.purchases.list({ limit: 10 })
+    .then(purchases => {
+        console.log(`There are ${purchases.count} purchases.`);
+        for(let purchase of purchases.results) {
+            console.log(purchase);
+        }
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+// Pagination
+client.purchases.next()
+    .then(nextPage => console.log(nextPage))
+    .catch(error => console.log(error));
+
+client.purchases.previous()
+    .then(previousPage => console.log(previousPage))
+    .catch(error => console.log(error));
 ```
 
 
@@ -127,13 +163,29 @@ client.contacts.create(body)
     });
 
 // Create with groups and name - name and groups are optional.
-const body = {
+const bodyWithGroups = {
     numero: '224XXXXXXXXX',
     name: 'Foo',
     groups: ['API', 'Facebook Client'],
 }
 
-client.contacts.create(body)
+client.contacts.create(bodyWithGroups)
+    .then(contact => {
+        console.log(`A contact has been added :`, contact);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+// Create a contact with an email address
+const emailContact = {
+    numero: '224XXXXXXXXX',
+    name: 'Foo',
+    email: 'foo@example.com',
+    groups: ['API'],
+}
+
+client.contacts.create(emailContact)
     .then(contact => {
         console.log(`A contact has been added :`, contact);
     })
@@ -201,6 +253,47 @@ client.messages.get(messageId)
   .catch(error => {
     console.log(error);
   });
+
+// Send a WhatsApp message using a validated template
+const whatsappBody = {
+  sender_name: 'YYYYYYYYYY',
+  to: ['224XXXXXXXXX'],
+  channel: 'whatsapp',
+  template_name: 'my_template',
+  template_variables: {
+    body: { '1': 'value 1', '2': 'value 2' },
+  },
+}
+
+client.messages.create(whatsappBody)
+  .then(message => {
+    console.log(`A WhatsApp message has been sent : `, message);
+  })
+  .catch(error => {
+    console.log(error);
+  });
+
+// Send an email with HTML content, a reply-to address and attachments
+const emailBody = {
+  sender_name: 'YYYYYYYYYY',
+  to: ['client@example.com'],
+  channel: 'email',
+  subject: 'Your invoice',
+  message: 'Plain text version of the email',
+  html: '<p>HTML version of the email</p>',
+  reply_to: ['support@example.com'],
+  attachments: [
+    { filename: 'invoice.pdf', content: '<base64>' },
+  ],
+}
+
+client.messages.create(emailBody)
+  .then(message => {
+    console.log(`An email has been sent : `, message);
+  })
+  .catch(error => {
+    console.log(error);
+  });
 ```
 
 ## <a name="verifications"></a> Verifications
@@ -244,8 +337,38 @@ client.verifications.verify(verificationParams)
     .catch(error => {
         console.log(error);
     })
-```
 
+// Request a verification code by WhatsApp
+const whatsappVerification = {
+    to: "+123456789",
+    channels: ["whatsapp"],
+    sender_name: "YYYYYYYYYY",
+};
+
+client.verifications.create(whatsappVerification)
+    .then(response => {
+        console.log("A WhatsApp verification request is issued: ", response);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+
+// Request a verification code by email
+const emailVerification = {
+    channels: ["email"],
+    email: "client@example.com",
+    email_sender_name: "no-reply@example.com",
+    email_subject: "Your verification code",
+};
+
+client.verifications.create(emailVerification)
+    .then(response => {
+        console.log("An email verification request is issued: ", response);
+    })
+    .catch(error => {
+        console.log(error);
+    });
+```
 
 ## Credit
 Nimba SMS

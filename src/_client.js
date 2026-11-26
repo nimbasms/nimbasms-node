@@ -4,6 +4,8 @@ const GroupManager = require('./groups');
 const AccountManager = require('./accounts');
 const MessageManager = require('./messages');
 const VerificationManager = require('./verifications');
+const PurchaseManager = require('./purchases');
+const ExtensionManager = require('./extensions');
 
 /**
  * Represents a Nimba SMS client for interacting with Nimba SMS API resources.
@@ -67,6 +69,20 @@ class NimbaSMSClient {
          * @memberof NimbaSMSClient
          */
         this._verificationManager = null;
+
+        /**
+         * Manager for interacting with purchases.
+         * @type {PurchaseManager}
+         * @memberof NimbaSMSClient
+         */
+        this._purchaseManager = null;
+
+        /**
+         * Manager for interacting with extensions.
+         * @type {ExtensionManager}
+         * @memberof NimbaSMSClient
+         */
+        this._extensionManager = null;
     }
 
     /**
@@ -151,6 +167,34 @@ class NimbaSMSClient {
             });
         }
         return this._verificationManager;
+    }
+
+    /**
+     * Gets the manager for interacting with purchases.
+     * @returns {PurchaseManager} The manager for purchases.
+     */
+    get purchases() {
+        if(!this._purchaseManager) {
+            this._purchaseManager = new PurchaseManager({
+                SECRET_TOKEN: this._secretToken,
+                SERVICE_ID: this._serviceId,
+            });
+        }
+        return this._purchaseManager;
+    }
+
+    /**
+     * Gets the manager for interacting with extensions.
+     * @returns {ExtensionManager} The manager for extensions.
+     */
+    get extensions() {
+        if(!this._extensionManager) {
+            this._extensionManager = new ExtensionManager({
+                SECRET_TOKEN: this._secretToken,
+                SERVICE_ID: this._serviceId,
+            });
+        }
+        return this._extensionManager;
     }
 }
 
