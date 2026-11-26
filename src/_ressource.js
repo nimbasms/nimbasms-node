@@ -93,16 +93,16 @@ class Ressource{
             }
         }
 
-        const { next, count, previous, ...restData } = await this.request({
+        const response = await this.request({
             url: url,
             params: params,
         });
 
-        this._next = next;
-        this._count = count;
-        this._previous = previous;
+        this._next = response?.next ?? null;
+        this._count = response?.count ?? 0;
+        this._previous = response?.previous ?? null;
 
-        return restData;
+        return response;
     }
 
     /**
@@ -148,15 +148,15 @@ class Ressource{
             return null;
         }
 
-        const { next, count, previous, ...restData } = await this.request({
+        const response = await this.request({
             url: this._next,
         });
 
-        this._next = next;
-        this._count = count;
-        this._previous = previous;
+        this._next = response?.next ?? null;
+        this._count = response?.count ?? 0;
+        this._previous = response?.previous ?? null;
 
-        return restData;
+        return response;
     }
 
     /**
@@ -171,15 +171,15 @@ class Ressource{
             return null;
         }
 
-        const { next, count, previous, ...restData } = await this.request({
+        const response = await this.request({
             url: this._previous,
         });
 
-        this._next = next;
-        this._count = count;
-        this._previous = previous;
+        this._next = response?.next ?? null;
+        this._count = response?.count ?? 0;
+        this._previous = response?.previous ?? null;
 
-        return restData;
+        return response;
     }
 
     /**

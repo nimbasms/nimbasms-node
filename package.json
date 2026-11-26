@@ -1,8 +1,9 @@
 {
   "name": "nimbasms",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "description": "A Node JS module for communicating with Nimba SMS API.",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "devstart": "nodemon index.js",
