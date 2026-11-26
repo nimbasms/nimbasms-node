@@ -105,6 +105,112 @@ class ExtensionManager extends Ressource {
             data: { is_published: isPublished },
         });
     }
+
+    /**
+     * List the actions of an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {object} [params] - (Optional) Query parameters for listing actions.
+     * @param {number} [params.limit] - (Optional) The maximum number of actions to retrieve.
+     * @param {number} [params.offset] - (Optional) The offset for paginating through actions.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with a list of actions.
+     * @memberof ExtensionManager
+     */
+    async listActions(extensionId, params) {
+        return this.listUrl(`${this.RESSOURCE_URL}/${extensionId}/actions`, params);
+    }
+
+    /**
+     * Create a new action for an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {object} body - The action data to create.
+     * @param {string} body.name - The name of the action.
+     * @param {string} body.method - The HTTP method of the action.
+     * @param {string} body.endpoint - The endpoint of the action.
+     * @param {string} body.description - The description of the action.
+     * @param {object} [body.required_params] - (Optional) The required parameters.
+     * @param {object} [body.optional_params] - (Optional) The optional parameters.
+     * @param {object} [body.response_format] - (Optional) The response format.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the created action.
+     * @memberof ExtensionManager
+     */
+    async createAction(extensionId, body) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${extensionId}/actions`,
+            method: "POST",
+            data: body,
+        });
+    }
+
+    /**
+     * Retrieve a specific action of an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {string} actionId - The identifier of the action to retrieve.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the action details.
+     * @memberof ExtensionManager
+     */
+    async getAction(extensionId, actionId) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${extensionId}/actions/${actionId}`,
+        });
+    }
+
+    /**
+     * Partially update an existing action of an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {string} actionId - The identifier of the action to update.
+     * @param {object} body - The action fields to update.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the updated action.
+     * @memberof ExtensionManager
+     */
+    async updateAction(extensionId, actionId, body) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${extensionId}/actions/${actionId}`,
+            method: "PATCH",
+            data: body,
+        });
+    }
+
+    /**
+     * Delete an existing action of an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {string} actionId - The identifier of the action to delete.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the server response.
+     * @memberof ExtensionManager
+     */
+    async deleteAction(extensionId, actionId) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${extensionId}/actions/${actionId}`,
+            method: "DELETE",
+        });
+    }
+
+    /**
+     * Publish or unpublish an action of an extension.
+     * @async
+     * @param {string} extensionId - The identifier of the parent extension.
+     * @param {string} actionId - The identifier of the action to publish.
+     * @param {boolean} [isPublished=true] - Whether the action should be published.
+     * @throws {Error} If the request fails or the server returns an error.
+     * @returns {Promise<object>} A promise that resolves with the publish result.
+     * @memberof ExtensionManager
+     */
+    async publishAction(extensionId, actionId, isPublished = true) {
+        return this.request({
+            url: `${this.RESSOURCE_URL}/${extensionId}/actions/${actionId}/publish`,
+            method: "POST",
+            data: { is_published: isPublished },
+        });
+    }
 }
 
 module.exports = ExtensionManager;
